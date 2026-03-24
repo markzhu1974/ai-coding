@@ -1,0 +1,44 @@
+# 训练配置
+training:
+  algorithm: "PPO"
+  total_timesteps: 100000  # 总训练步数
+  n_envs: 1  # 并行环境数量
+  seed: 42
+  
+# PPO算法参数
+ppo:
+  learning_rate: 0.0003
+  n_steps: 2048  # 每次更新前收集的步数
+  batch_size: 64
+  n_epochs: 10  # 每次更新时的优化次数
+  gamma: 0.99  # 折扣因子
+  gae_lambda: 0.95  # GAE参数
+  clip_range: 0.2  # PPO裁剪参数
+  clip_range_vf: null  # 值函数裁剪
+  ent_coef: 0.1  # 熵系数（增加探索）
+  vf_coef: 0.5  # 值函数系数
+  max_grad_norm: 0.5  # 最大梯度范数
+  
+# 策略网络结构
+policy:
+  network_arch: [64, 64]  # 隐藏层大小
+  activation_fn: "tanh"  # 激活函数
+  
+# 评估参数
+evaluation:
+  eval_freq: 10000  # 每多少步评估一次
+  n_eval_episodes: 5  # 每次评估的episode数量
+  eval_log_path: "./results/eval/"
+  
+# 日志和保存
+logging:
+  tensorboard_log: "./results/tensorboard/"
+  save_freq: 50000  # 每多少步保存一次模型
+  save_path: "./models/"
+  verbose: 1  # 日志详细程度
+  
+# 回调函数
+callbacks:
+  use_checkpoint_callback: true
+  use_eval_callback: true
+  use_progress_bar: true

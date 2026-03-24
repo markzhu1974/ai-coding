@@ -1,0 +1,32 @@
+# 环境配置
+env:
+  name: "UR5PickPlaceEnv"
+  render_mode: "human"  # human 或 rgb_array
+  use_gui: false  # 训练时建议关闭GUI以加速
+  max_steps: 200
+  
+# 机器人参数
+robot:
+  urdf_path: "robots/urdf/ur5.urdf"
+  joint_control_mode: "position"  # position 或 velocity
+  max_force: 50.0
+  
+# 任务参数
+task:
+  object_size: 0.05
+  object_mass: 0.1
+  target_size: 0.08
+  workspace_bounds:
+    x: [0.3, 0.7]
+    y: [-0.3, 0.3]
+    z: [0.1, 0.5]
+  
+# 奖励参数（简化训练版）
+reward:
+  grasp_reward: 50.0  # 成功抓取奖励（大幅增加）
+  place_reward: 100.0  # 成功放置奖励（大幅增加）
+  distance_scale: 5.0  # 距离奖励缩放因子（原10.0）
+  time_penalty: 0.002  # 时间惩罚（原0.01）
+  collision_penalty: 0.5  # 碰撞惩罚（原2.0）
+  drop_penalty: 5.0     # 掉落物体惩罚
+  gripper_penalty: 0.0   # 夹爪使用惩罚（已移除，改为奖励）
